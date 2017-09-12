@@ -9,7 +9,7 @@ require "bundler/setup"
 require "response_encryption"
 Dir[File.join('./lib/response_encryption/**/*.rb')].each { |f| require f }
 Dir[File.join('./spec/support/**/*.rb')].each { |f| require f }
-require 'rspec'
+require 'rspec/rails'
 require 'pry'
 
 ResponseEncryption.configure do |config|
@@ -32,5 +32,6 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
+  config.include RSpec::Rails::RequestExampleGroup, type: :feature
   config.include EncryptHelper
 end

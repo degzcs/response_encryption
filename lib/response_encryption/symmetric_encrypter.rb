@@ -4,7 +4,7 @@ module ResponseEncryption
 
     def initialize(options={})
       validate(options)
-      @cipher = OpenSSL::Cipher::AES.new(256, :CBC)
+      @cipher = ResponseEncryption.cipher
       @iv = Base64.decode64(options[:encoded_iv])
       @key = Base64.decode64(options[:encoded_key])
     end
@@ -29,8 +29,8 @@ module ResponseEncryption
     end
 
     class << self
-      def nonce
-        Base64.encode64(OpenSSL::Cipher::AES.new(256, :CBC).random_iv)
+      def encoded_nonce
+        Base64.encode64(ResponseEncryption.cipher.random_iv)
       end
     end
   end

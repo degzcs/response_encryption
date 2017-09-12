@@ -8,12 +8,12 @@ module ResponseEncryption
     end
 
     # @param data [ Object ] which should respond to #to_s
-    # @param data_encoded [ Boolean ]
+    # @param encode_data [ Boolean ]
     # @return [ String ] with the encrypted and encoded information
-    def encrypt(data, data_encoded = true)
+    def encrypt(data, encode_data = true)
       return data if data.blank?
       encrypted = public_key.public_encrypt(data.to_s)
-      @encrypted_data = data_encoded ? Base64.encode64(encrypted) : encrypted
+      @encrypted_data = encode_data ? Base64.encode64(encrypted) : encrypted
     end
 
     def validate(options)

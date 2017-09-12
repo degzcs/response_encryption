@@ -1,5 +1,5 @@
 class OrganizationSerializer < ActiveModel::Serializer
-  include Encryption::EncryptAttributes
+  include ResponseEncryption::EncryptAttributes
 
   #
   # Attribtues

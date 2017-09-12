@@ -44,5 +44,13 @@ module ResponseEncryption
     def encrypted_body_strategy?
       self.encryption_strategy == :encrypted_body
     end
+
+    def active_model_serializers?
+      self.serializer_gem == :active_model_serializers
+    end
+
+    def jsonapi_resources?
+      self.serializer_gem == :jsonapi_resources
+    end
   end
 end

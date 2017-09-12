@@ -1,4 +1,4 @@
-if defined? ActionController::Serialization
+# if defined? ActionController::Serialization
   require 'action_controller'
   require 'action_controller/serialization'
   # mokey patch for add context to Serilization options
@@ -22,4 +22,4 @@ if defined? ActionController::Serialization
       serializable_resource.adapter.is_a?(String) ? serializable_resource.adapter : serializable_resource
     end
   end
-end
+# end

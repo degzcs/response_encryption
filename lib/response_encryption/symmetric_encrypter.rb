@@ -24,8 +24,8 @@ module ResponseEncryption
     end
 
     def validate(options)
-      errors.add(:param_missing, 'You must to set the encoded_iv (nonce) option') if options[:iv].blank?
-      errors.add(:param_missing, 'You must to set the encoded_key (symmetric-key) option') if options[:key].blank?
+      errors.add(:param_missing, 'You must to set the encoded_iv (nonce) option') if options[:encoded_iv].blank?
+      errors.add(:param_missing, 'You must to set the encoded_key (symmetric-key) option') if options[:encoded_key].blank?
     end
 
     class << self

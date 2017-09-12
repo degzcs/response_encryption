@@ -1,10 +1,9 @@
 require "spec_helper"
 
 RSpec.describe ResponseEncryption::ActsAsEncryptionController, type: :request do
-  it 'should be a valid app' do
-    expect(::Rails.application).to be_a(Dummy::Application)
-  end
-  context 'data NO encrypted' do
+  context 'Encrypted data' do
+    # IMPORTANT: This value wil be saved into a database or a plain file in a secret way
+    ENCODED_FAKE_SYMMETRIC_KEY= "/XtrzxtbgOYEoVZT3pTG/qhFUrenM4ftn6IqIsemy2c=\n".freeze
     it 'returns the organization details' do
       expected_response = {
         'tax_number' => '123456789',
@@ -19,7 +18,11 @@ RSpec.describe ResponseEncryption::ActsAsEncryptionController, type: :request do
         params: {},
         headers: {}
 
-      expect(JSON.parse(response.body)).to include expected_response
+      encoded_nonce = response.headers['Replay-Nonce']
+      JSON.parse(response.body).each do |key, encoded_encrypted_data|
+        response_value = decode_and_decrypt(encoded_encrypted_data, encoded_nonce, ENCODED_FAKE_SYMMETRIC_KEY)
+        expect(response_value).to eq expected_response[key]
+      end
       expect(response.status).to eq 200
     end
   end

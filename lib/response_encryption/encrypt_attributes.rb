@@ -7,32 +7,30 @@ module ResponseEncryption::EncryptAttributes
       context = context_from(options)
       if ResponseEncryption.encrypted_attributes_strategy?
         raise(ActionController::ParameterMissing, 'You must to set the context for the resource/serializer') if context.blank?
-        symmetric_key = symmetric_key_from(context[:subdomain])
-        @encrypter = Encryption::SymmetricEncrypter.new(iv: context[:nonce], key: symmetric_key)
+        @encrypter = ResponseEncryption::SymmetricEncrypter.new(encoded_iv: context[:encoded_nonce], encoded_key: context[:encoded_symmetric_key])
         self.class.encrypt_attributes!(object)
       end
     end
 
+    # Retrieve the context variable that will be send to the Serializer or Resource in order to pass
+    # some important variables.
+    # @param param [ Hash ]
+    # @return [ Hash ]
     def context_from(param)
       case ResponseEncryption.serializer_gem
       when :active_model_serializers
+         raise "You must to set encoded_symmetric_key option in the context hash" if param[:context][:encoded_symmetric_key].blank?
          param[:context]
       when :jsonapi_resources
+        raise "You must to set encoded_symmetric_key option in the context hash" if param[:encoded_symmetric_key].blank?
         param
       when :none
         raise 'pending!!'
       end
     end
 
-    # TODO change this to remove Tenant!!!
-    def symmetric_key_from(subdomain)
-      tenant = Tenant.find_by(subdomain: subdomain)
-      fail ActiveRecord::RecordNotFound, "The subdomain #{ subdomain } not found" if tenant.blank?
-      tenant.symmetric_key
-    end
-
     def cipher
-      @encrypter.cipher
+      ResponseEncryption.cipher
     end
   end
 

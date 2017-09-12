@@ -1,8 +1,6 @@
 # ResponseEncryption
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/response_encryption`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem can be used to encrypt the attributes of your rails application or then entired body. It can be integrated with jsonapi-resources, active-model-serializer or just with a normal Rails application.
 
 ## Installation
 
@@ -14,7 +12,7 @@ gem 'response_encryption'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -22,7 +20,54 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### JSON API resources
+- Install and configure the `jsonapi-resource` gem in your project
+- add an initializer with the ResponseEncryption config
+
+```ruby
+ResponseEncryption.configure do |config|
+  config.encryption_strategy = :encrypted_attributes
+  config.serializer_gem = :jsonapi_resources
+  config.algothim = 'AES'
+  config.algorithm_key_length = '256'
+  config.block_cipher_mode = 'CBC'
+end
+```
+
+- include the `ResponseEncryption::ActsAsEncryptionController` module into your `ApplicationController`
+- include the `include ResponseEncryption::EncryptAttributes` your XResource
+- add the fields that you want to encrypt as parameters in the your XResource
+
+```ruby
+encrypted_attrs :field1, field2, ... , fieldn
+```
+### Active model serializer
+- Install and configure the `active_model_serializers` gem in your project
+- add an initializer with the ResponseEncryption config
+
+```ruby
+ResponseEncryption.configure do |config|
+  config.encryption_strategy = :encrypted_attributes
+  config.serializer_gem = :active_model_serializers
+  config.algothim = 'AES'
+  config.algorithm_key_length = '256'
+  config.block_cipher_mode = 'CBC'
+end
+```
+
+- include the `ResponseEncryption::ActsAsEncryptionController` module into your `ApplicationController`
+- include the `include ResponseEncryption::EncryptAttributes` your XSerializer
+- add the fields that you want to encrypt as parameters in the your XSerializer
+
+```ruby
+encrypted_attrs :field1, field2, ... , fieldn
+```
+## TODO
+- explain ResponseEncryption config parameters
+- show examples
+- add encryption_strategy for encrypt_body
+- test other algorithms to encrypt
+- implement responses without any serializer
 
 ## Development
 

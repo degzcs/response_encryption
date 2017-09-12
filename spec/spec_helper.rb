@@ -1,5 +1,9 @@
 require "bundler/setup"
 require "response_encryption"
+Dir[File.join('./lib/response_encryption/**/*.rb')].each { |f| require f }
+Dir[File.join('./spec/support/**/*.rb')].each { |f| require f }
+require 'rspec'
+require 'pry'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -11,4 +15,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.include EncryptHelper
 end

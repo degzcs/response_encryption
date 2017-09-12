@@ -14,7 +14,7 @@ RSpec.describe ResponseEncryption::ActsAsEncryptionController, type: :request do
         'email' => 'test@test.com'
       }
       organization = Organization.create(expected_response)
-      get "http://api.example.com:3000/organizations/#{ organization.id }",
+      get "http://api.example.com:3000/organizations/#{ organization.id }/details",
         params: {},
         headers: {}
 

@@ -13,12 +13,15 @@ require 'rspec/rails'
 require 'pry'
 
 ResponseEncryption.configure do |config|
-  config.enabled = true
   config.encryption_strategy = :encrypted_attributes
-  config.serializer_gem = :active_model_serializers # :active_model_serializers, :jsonapi_resources
+  config.serializer_gem = :none # :active_model_serializers, :jsonapi_resources
   config.algothim = 'AES'
   config.algorithm_key_length = '256'
   config.block_cipher_mode = 'CBC'
+end
+
+JSONAPI.configure do |config|
+  config.json_key_format = :underscored_key
 end
 
 RSpec.configure do |config|

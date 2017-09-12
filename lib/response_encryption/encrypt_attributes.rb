@@ -19,7 +19,7 @@ module ResponseEncryption::EncryptAttributes
     def context_from(param)
       case ResponseEncryption.serializer_gem
       when :active_model_serializers
-         raise "You must to set encoded_symmetric_key option in the context hash" if param[:context][:encoded_symmetric_key].blank?
+         raise "You must to set encoded_symmetric_key option in the context hash" if param[:context]&.slice(:encoded_symmetric_key).blank?
          param[:context]
       when :jsonapi_resources
         raise "You must to set encoded_symmetric_key option in the context hash" if param[:encoded_symmetric_key].blank?

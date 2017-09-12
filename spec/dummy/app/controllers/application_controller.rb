@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ResponseEncryption::ActsAsEncryptionController
+  include JSONAPI::ActsAsResourceController
 
   def context
     default_context.merge({

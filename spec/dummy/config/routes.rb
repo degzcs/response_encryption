@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :organizations do
+  jsonapi_resources :organizations do
     member do
       get 'details', to: 'details'
     end

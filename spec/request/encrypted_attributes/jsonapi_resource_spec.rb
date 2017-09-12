@@ -6,7 +6,7 @@ RSpec.describe ResponseEncryption::ActsAsEncryptionController, type: :request do
       # IMPORTANT: This value wil be saved into a database or a plain file in a secret way
       ENCODED_FAKE_SYMMETRIC_KEY= "/XtrzxtbgOYEoVZT3pTG/qhFUrenM4ftn6IqIsemy2c=\n".freeze
       ResponseEncryption.configure do |config|
-        config.serializer_gem = :active_model_serializers # :active_model_serializers, :jsonapi_resources
+        config.serializer_gem = :jsonapi_resources # :active_model_serializers, :jsonapi_resources
       end
     end
 
@@ -20,12 +20,12 @@ RSpec.describe ResponseEncryption::ActsAsEncryptionController, type: :request do
         'email' => 'test@test.com'
       }
       organization = Organization.create(expected_response)
-      get "http://api.example.com:3000/organizations/#{ organization.id }/details",
+      get "http://api.example.com:3000/organizations/#{ organization.id }",
         params: {},
         headers: {}
 
       encoded_nonce = response.headers['Replay-Nonce']
-      JSON.parse(response.body).each do |key, encoded_encrypted_data|
+      JSON.parse(response.body)['data']['attributes'].each do |key, encoded_encrypted_data|
         response_value = decode_and_decrypt(encoded_encrypted_data, encoded_nonce, ENCODED_FAKE_SYMMETRIC_KEY)
         expect(response_value).to eq expected_response[key]
       end

@@ -34,7 +34,19 @@ ResponseEncryption.configure do |config|
 end
 ```
 
-- include the `ResponseEncryption::ActsAsEncryptionController` module into your `ApplicationController`
+- include the `ResponseEncryption::ActsAsEncryptionController` module into your `ApplicationController` and define a context method there, as follows:
+
+```ruby
+class ApiController < ApplicationController
+  include ResponseEncryption::ActsAsEncryptionController
+
+  def context
+    default_context.merge({
+            encoded_symmetric_key: get_encoded_symmetric_key_from(database_or_file)
+           })
+  end
+end
+```
 - include the `include ResponseEncryption::EncryptAttributes` your XResource
 - add the fields that you want to encrypt as parameters in the your XResource
 

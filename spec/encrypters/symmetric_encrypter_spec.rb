@@ -1,8 +1,6 @@
 require "spec_helper"
 
 RSpec.describe ResponseEncryption::SymmetricEncrypter do
-  ENCODED_FAKE_IV= "M3e4lRUJ8PAVuTnfLS29tQ==\n".freeze
-  ENCODED_FAKE_SYMMETRIC_KEY= "/XtrzxtbgOYEoVZT3pTG/qhFUrenM4ftn6IqIsemy2c=\n".freeze
 
   let(:encrypter){ ResponseEncryption::SymmetricEncrypter.new(encoded_iv: ENCODED_FAKE_IV, encoded_key: ENCODED_FAKE_SYMMETRIC_KEY) }
 

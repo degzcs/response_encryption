@@ -1,14 +1,5 @@
 require 'response_encryption/railtie' if defined?(Rails)
-
-require "response_encryption/version"
-require "response_encryption/active_model_service"
-require "response_encryption/asymmetric_encrypter"
-require "response_encryption/symmetric_encrypter"
-require "response_encryption/act_as_a_encryption_controller"
-require "response_encryption/encrypt_attributes"
-require "response_encryption/serialization_ext"
-
-# require 'active_support/core_ext/object/blank'
+# # require 'active_support/core_ext/object/blank'
 
 module ResponseEncryption
   class << self
@@ -54,3 +45,12 @@ module ResponseEncryption
     end
   end
 end
+
+require "response_encryption/version"
+require "response_encryption/active_model_service"
+require "response_encryption/asymmetric_encrypter"
+require "response_encryption/symmetric_encrypter"
+require "response_encryption/act_as_a_encryption_controller"
+require "response_encryption/encrypt_attributes"
+require "response_encryption/serialization_ext"
+

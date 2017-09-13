@@ -3,8 +3,6 @@ require "spec_helper"
 RSpec.describe ResponseEncryption::ActsAsEncryptionController, type: :request do
   context 'Encrypted data' do
     before :each do
-      # IMPORTANT: This value wil be saved into a database or a plain file in a secret way
-      ENCODED_FAKE_SYMMETRIC_KEY= "/XtrzxtbgOYEoVZT3pTG/qhFUrenM4ftn6IqIsemy2c=\n".freeze
       ResponseEncryption.configure do |config|
         config.serializer_gem = :jsonapi_resources # :active_model_serializers, :jsonapi_resources
       end

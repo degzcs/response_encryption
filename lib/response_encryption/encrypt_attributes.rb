@@ -1,3 +1,4 @@
+require 'response_encryption/serialization_ext'
 module ResponseEncryption::EncryptAttributes
   extend ActiveSupport::Concern
 

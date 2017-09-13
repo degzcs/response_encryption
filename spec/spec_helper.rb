@@ -24,6 +24,9 @@ JSONAPI.configure do |config|
   config.json_key_format = :underscored_key
 end
 
+ENCODED_FAKE_IV= "M3e4lRUJ8PAVuTnfLS29tQ==\n".freeze
+ENCODED_FAKE_SYMMETRIC_KEY= "/XtrzxtbgOYEoVZT3pTG/qhFUrenM4ftn6IqIsemy2c=\n".freeze
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"

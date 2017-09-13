@@ -34,7 +34,7 @@ module ResponseEncryption
     end
 
     def available_encryption_strategies
-      %i(encrypted_attributes encrypted_body)
+      %i(encrypted_attributes encrypted_body none)
     end
 
     def encrypted_attributes_strategy?

@@ -22,6 +22,5 @@ begin
       serializable_resource.adapter.is_a?(String) ? serializable_resource.adapter : serializable_resource
     end
   end
-rescue
-  # NOTE there is not Serialization class ??
+rescue LoadError
 end

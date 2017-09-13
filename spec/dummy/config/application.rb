@@ -4,8 +4,11 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "response_encryption"
-require "active_model_serializers" #if ResponseEncryption.active_model_serializers?
-require "jsonapi-resources" #if ResponseEncryption.jsonapi_resources?
+begin
+  require "active_model_serializers"
+  require "jsonapi-resources"
+rescue LoadError
+end
 
 module Dummy
   class Application < Rails::Application
